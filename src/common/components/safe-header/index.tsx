@@ -1,7 +1,7 @@
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { createStylesModel, useTheme } from '@/common/core/interface/theme'
+import { createStylesModel, useTheme } from '@/core/interface/theme'
 import { palette } from '@/theme'
 
 interface SafeHeaderProps {

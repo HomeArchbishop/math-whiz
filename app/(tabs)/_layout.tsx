@@ -1,8 +1,8 @@
 import { Tabs } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { useNavigationNoHeader } from '@/common/core/interface/view'
 import { useI18n } from '@/common/i18n'
+import { useNavigationNoHeader } from '@/core/interface/view'
 
 /**
  * 主页面布局

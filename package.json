@@ -3,7 +3,8 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "dev": "bun scripts/build/build --dev",
+    "build": "bun scripts/build/build",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",

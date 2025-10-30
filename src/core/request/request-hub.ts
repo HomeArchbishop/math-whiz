@@ -1,9 +1,4 @@
-interface MwCtx {
-  request: Request
-  response: Response
-}
-
-export type Middleware = (ctx: MwCtx, next: () => Promise<void>) => Promise<void>
+import { Middleware, MutableResponse, MwCtx, RequestOptions } from './model'
 
 const compose = (middlewares: Middleware[]) => {
   const funcs = [...middlewares].flat(Infinity)
@@ -15,7 +10,7 @@ const compose = (middlewares: Middleware[]) => {
       const nextProxy = () => dispatch(i + 1)
       await fn(ctx, nextProxy)
     }
-    dispatch(0)
+    await dispatch(0)
   }
 }
 
@@ -28,31 +23,41 @@ export class RequestHub {
   }
 
   async get (url: string, options: RequestInit = {}) {
-    const request = new Request(url, {
-      ...options,
+    const requestOptions = {
+      url,
       method: 'GET',
-    })
-    return this.dispatch(request)
+      headers: {},
+      ...options,
+    }
+    return this.dispatch(requestOptions)
   }
 
   async post (url: string, data: unknown = {}, options: RequestInit = {}) {
-    const request = new Request(url, {
-      ...options,
+    const requestOptions = {
+      url,
       method: 'POST',
       body: JSON.stringify(data),
-    })
-    return this.dispatch(request)
+      headers: {
+        'Content-Type': 'application/json',
+        ...(options.headers ?? {}),
+      },
+    }
+    return this.dispatch(requestOptions)
   }
 
-  async dispatch (request: Request) {
-    const ctx: MwCtx = { request, response: new Response() }
+  async dispatch (requestOptions: RequestOptions) {
+    const ctx: MwCtx = {
+      request: requestOptions,
+      response: new MutableResponse(),
+    }
     const middlewareFn = compose([...this.middlewares, this.send])
     await middlewareFn(ctx)
-    return ctx.response.json()
+    return ctx.response
   }
 
   async send (ctx: MwCtx) {
-    Object.assign(ctx.response, await fetch(ctx.request))
+    const response = await fetch(ctx.request.url, ctx.request)
+    await ctx.response.assign(response)
   }
 }
 

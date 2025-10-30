@@ -1,4 +1,4 @@
-import { RetcodeError } from '../request/retcode'
+import { RetcodeError } from '../../common/request/retcode'
 import { useAsync } from './async'
 
 type FalsyValue = false | null | undefined | '' | 0

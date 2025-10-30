@@ -10,8 +10,8 @@ export default function AchievementTabView () {
 
   return (
     <View>
-      <SafeHeader title='Achievement' />
-      <Text>{t('achievement')}</Text>
+      <SafeHeader title={t('tabNameAchievement')} />
+      <Text>{t('tabNameAchievement')}</Text>
     </View>
   )
 }

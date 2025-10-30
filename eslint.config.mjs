@@ -9,7 +9,7 @@ import neostandard from 'neostandard'
 export default [
   js.configs.recommended,
   {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -57,6 +57,6 @@ export default [
         require: 'readonly',
       },
     },
-    ignores: ['dist/*', 'metro.config.js', 'plugins/*', '.prettierrc.*', 'prettier.config.*'],
+    ignores: ['dist/*', 'scripts/**/*.js'],
   },
 ]

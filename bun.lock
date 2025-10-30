@@ -23,6 +23,7 @@
         "expo-system-ui": "~6.0.8",
         "expo-web-browser": "~15.0.8",
         "i18next": "^25.6.0",
+        "js-yaml": "^4.1.0",
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-i18next": "^16.2.1",
@@ -35,6 +36,7 @@
         "react-native-worklets": "0.5.1",
       },
       "devDependencies": {
+        "@types/js-yaml": "^4.0.9",
         "@types/react": "~19.1.0",
         "@typescript-eslint/parser": "^8.46.2",
         "eslint": "^9.38.0",
@@ -480,6 +482,8 @@
     "@types/istanbul-lib-report": ["@types/istanbul-lib-report@3.0.3", "", { "dependencies": { "@types/istanbul-lib-coverage": "*" } }, "sha512-NQn7AHQnk/RSLOxrBbGyJM/aVQ+pjj5HCgasFxc0K/KhoATfQ/47AyUl15I2yBUpihjmas+a+VJBOqecrFH+uA=="],
 
     "@types/istanbul-reports": ["@types/istanbul-reports@3.0.4", "", { "dependencies": { "@types/istanbul-lib-report": "*" } }, "sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ=="],
+
+    "@types/js-yaml": ["@types/js-yaml@4.0.9", "", {}, "sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg=="],
 
     "@types/json-schema": ["@types/json-schema@7.0.15", "", {}, "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="],
 

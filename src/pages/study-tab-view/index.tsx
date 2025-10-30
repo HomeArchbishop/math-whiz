@@ -9,8 +9,8 @@ export default function StudyTabView () {
   const { t } = useI18n()
   return (
     <View>
-      <SafeHeader title='Study' />
-      <Text>{t('study')}</Text>
+      <SafeHeader title={t('tabNameStudy')} />
+      <Text>{t('tabNameStudy')}</Text>
     </View>
   )
 }

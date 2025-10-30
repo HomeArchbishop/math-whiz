@@ -28,28 +28,28 @@ export default function HomeViewLayout () {
       <Tabs.Screen
         name='study'
         options={{
-          tabBarLabel: t('tab.study'),
+          tabBarLabel: t('tabNameStudy'),
           tabBarActiveTintColor: '#FF9C39',
         }}
       />
       <Tabs.Screen
         name='game'
         options={{
-          tabBarLabel: t('tab.game'),
+          tabBarLabel: t('tabNameGame'),
           tabBarActiveTintColor: '#586CFF',
         }}
       />
       <Tabs.Screen
         name='achievement'
         options={{
-          tabBarLabel: t('tab.achievement'),
+          tabBarLabel: t('tabNameAchievement'),
           tabBarActiveTintColor: '#3FE9D2',
         }}
       />
       <Tabs.Screen
         name='me'
         options={{
-          tabBarLabel: t('tab.me'),
+          tabBarLabel: t('tabNameMe'),
           tabBarActiveTintColor: '#39BAFF',
         }}
       />

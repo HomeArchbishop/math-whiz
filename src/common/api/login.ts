@@ -1,7 +1,7 @@
 import { requestGuest } from '../request'
 import { SuccessApiData } from './utils/model'
 
-interface SigninParams {
+interface SignupParams {
   username: string
   password: string
   child_name?: string
@@ -18,7 +18,7 @@ interface LoginResult {
   refresh_token: string
 }
 
-export const signin = async (params: SigninParams) => {
+export const signup = async (params: SignupParams) => {
   return await requestGuest.post('/api/v1/auth/register', params)
 }
 

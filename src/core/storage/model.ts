@@ -23,7 +23,3 @@ export interface StrategyStorage {
   getItemAsJSON: <T>(key: string, options?: StorageOptions) => Promise<T | null>
   setItemAsJSON: <T>(key: string, value: T, options?: StorageOptions) => Promise<void>
 }
-
-export interface StorageCache {
-  cache: Map<'async' | 'secure', Map<string, string>>
-}

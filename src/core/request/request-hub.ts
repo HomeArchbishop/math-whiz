@@ -22,17 +22,17 @@ export class RequestHub {
     return this
   }
 
-  async get (url: string, options: RequestInit = {}) {
+  async get <T = unknown> (url: string, options: RequestInit = {}) {
     const requestOptions = {
       url,
       method: 'GET',
       headers: {},
       ...options,
     }
-    return this.dispatch(requestOptions)
+    return this.dispatch(requestOptions) as Promise<MutableResponse<T>>
   }
 
-  async post (url: string, data: unknown = {}, options: RequestInit = {}) {
+  async post <T = unknown> (url: string, data: unknown = {}, options: RequestInit = {}) {
     const requestOptions = {
       url,
       method: 'POST',
@@ -42,7 +42,7 @@ export class RequestHub {
         ...(options.headers ?? {}),
       },
     }
-    return this.dispatch(requestOptions)
+    return this.dispatch(requestOptions) as Promise<MutableResponse<T>>
   }
 
   async dispatch (requestOptions: RequestOptions) {

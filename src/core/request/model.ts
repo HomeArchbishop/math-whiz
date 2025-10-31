@@ -3,11 +3,12 @@ export interface RequestOptions extends RequestInit {
   headers: HeadersInit
 }
 
-export class MutableResponse {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class MutableResponse <T = any> {
   status: number = 0
   statusText: string = ''
   headers: Record<string, string> = {}
-  data: unknown
+  data = {} as T
 
   async assign (response: Response) {
     const headers: Record<string, string> = {}

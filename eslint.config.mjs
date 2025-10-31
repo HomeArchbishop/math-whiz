@@ -1,8 +1,6 @@
 import js from '@eslint/js'
 import tseslint from '@typescript-eslint/eslint-plugin'
 import tsparser from '@typescript-eslint/parser'
-import react from 'eslint-plugin-react'
-import reactNative from 'eslint-plugin-react-native'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import neostandard from 'neostandard'
 
@@ -26,17 +24,6 @@ export default [
       ...tseslint.configs.recommended.rules,
     },
   },
-  {
-    files: ['*.jsx', '*.tsx'],
-    plugins: {
-      react,
-      'react-native': reactNative,
-    },
-    rules: {
-      ...react.configs.recommended.rules,
-      ...reactNative.configs.all.rules,
-    },
-  },
   ...neostandard({}),
   {
     rules: {
@@ -44,6 +31,7 @@ export default [
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'no-unused-vars': 'off', // controlled by @typescript-eslint/no-unused-vars
     },
     plugins: {
       'simple-import-sort': simpleImportSort,

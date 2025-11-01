@@ -45,6 +45,6 @@ export default [
         require: 'readonly',
       },
     },
-    ignores: ['dist/*', 'scripts/**/*.js'],
+    ignores: ['dist/*', 'scripts/**/*.js', 'expo-env.d.ts'],
   },
 ]

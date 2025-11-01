@@ -105,3 +105,14 @@ export const useStorage = (key: string, options: StorageOptions = {}) => {
 
   return value ?? null
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useStorageAsJSON = <T = any>(key: string, options: StorageOptions = {}): T | null => {
+  const [value, , refresh] = useAsync(() => storage.getItemAsJSON(key, options), [key, options])
+
+  useEffect(() => {
+    return storage.watch(key, options, refresh)
+  }, [key, options])
+
+  return value as T | null
+}

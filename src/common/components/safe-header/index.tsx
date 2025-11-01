@@ -1,17 +1,16 @@
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { createStylesModel, useTheme } from '@/common/interface/theme'
-import { palette } from '@/theme'
+import { createStylesModel, useThemedStyles } from '@/common/interface/theme'
 
 interface SafeHeaderProps {
-  title: string,
+  title?: string,
   style?: StyleProp<ViewStyle>
 }
 
 export default function SafeHeader ({ title, style }: SafeHeaderProps) {
   const insets = useSafeAreaInsets()
-  const styles = useTheme(stylesModel)
+  const styles = useThemedStyles(stylesModel)
 
   const flattenedStyle = StyleSheet.flatten([
     styles.container,
@@ -21,13 +20,13 @@ export default function SafeHeader ({ title, style }: SafeHeaderProps) {
 
   return (
     <View style={flattenedStyle}>
-      <Text>{title}</Text>
+      {title && <Text>{title}</Text>}
     </View>
   )
 }
 
-const stylesModel = createStylesModel((scheme) => ({
+const stylesModel = createStylesModel((palette) => ({
   container: {
-    backgroundColor: palette[scheme].backgroundPrimary,
+    backgroundColor: palette.backgroundPrimary,
   },
 }))

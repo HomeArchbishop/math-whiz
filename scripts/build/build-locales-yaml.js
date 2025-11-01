@@ -4,6 +4,8 @@ const yaml = require('js-yaml')
 
 const localesDir = path.join(__dirname, '..', '..', 'src', 'locales')
 
+let isWatching = false
+
 async function buildLocalesYaml (isWatch = false) {
   fs.readdirSync(localesDir).forEach(file => {
     const yamlContent = fs.readFileSync(path.join(localesDir, file), 'utf8')
@@ -12,13 +14,14 @@ async function buildLocalesYaml (isWatch = false) {
   })
   console.log('[build-locales-yaml] build locales yaml success')
 
-  if (isWatch) {
+  if (isWatch && !isWatching) {
     fs.watch(localesDir, (event, filename) => {
       if (event === 'change' && filename.endsWith('.yaml')) {
         console.log(`[build-locales-yaml] ${filename} changed, rebuild`)
         buildLocalesYaml(true)
       }
     })
+    isWatching = true
   }
 }
 

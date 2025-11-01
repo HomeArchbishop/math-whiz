@@ -44,3 +44,4 @@ app-example
 
 # build
 src/locales/*.json
+src/pages/template.tsx

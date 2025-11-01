@@ -1,14 +1,19 @@
 import { StyleSheet, useColorScheme } from 'react-native'
 
-import { palette } from '@/theme'
+import { palettes } from '@/theme'
 
-export const useTheme = <T extends keyof typeof palette, K>(stylesCreator: (scheme: T) => K) => {
+export const useThemedStyles = <T extends keyof typeof palettes, K>(stylesCreator: (palette: typeof palettes[T], scheme: T) => K) => {
   const scheme = useColorScheme() as T
-  return stylesCreator(scheme)
+  return stylesCreator(palettes[scheme], scheme)
 }
 
-export const createStylesModel = <T extends StyleSheet.NamedStyles<T>>(
-  functionCreator: (scheme: 'dark' | 'light') => T,
+export const usePalette = () => {
+  const scheme = useColorScheme() ?? 'light'
+  return palettes[scheme]
+}
+
+export const createStylesModel = <T extends keyof typeof palettes, K extends StyleSheet.NamedStyles<K>>(
+  functionCreator: (palette: typeof palettes[T], scheme: T) => K,
 ) => {
-  return (scheme: 'dark' | 'light') => StyleSheet.create(functionCreator(scheme))
+  return (palette: typeof palettes[T], scheme: T) => StyleSheet.create(functionCreator(palette, scheme))
 }

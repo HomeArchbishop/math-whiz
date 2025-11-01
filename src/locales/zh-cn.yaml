@@ -2,3 +2,13 @@ tabNameAchievement: 成就
 tabNameGame: 游戏
 tabNameStudy: 学习
 tabNameMe: 我
+alreadyHaveAccount: 已有账号？
+firstTimeUser: 第一次来？
+enterYourInformation: 请输入你的信息
+signIn: 登录
+signUp: 注册
+signingIn: 登录
+signingUp: 注册
+username: 用户名
+password: 密码
+agreementTips: "{{action}}即表示已阅读并同意《用户协议》与《隐私政策》"

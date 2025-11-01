@@ -1,4 +1,4 @@
 import dark from './dark'
 import light from './light'
 
-export const palette = { dark, light } as const
+export const palettes = { dark, light } as const

@@ -2,3 +2,13 @@ tabNameAchievement: Achievement
 tabNameGame: Game
 tabNameStudy: Study
 tabNameMe: Me
+alreadyHaveAccount: Already have an account?
+firstTimeUser: First time user?
+enterYourInformation: Enter your information
+signIn: Sign in
+signUp: Sign up
+signingIn: signing in
+signingUp: signing up
+username: Username
+password: Password
+agreementTips: "By {{action}}, you agree to the <User Agreement> and <Privacy Policy>"

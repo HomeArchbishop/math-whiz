@@ -10,7 +10,7 @@ export default function StudyTabView () {
 
   return (
     <View>
-      <SafeHeader title={t('tabNameStudy')} />
+      <SafeHeader />
       <Text>{t('tabNameStudy')}</Text>
     </View>
   )

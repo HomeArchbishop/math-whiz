@@ -1,14 +1,16 @@
-import { Pressable, Text, View } from 'react-native'
+import { ReactNode } from 'react'
+import { Dimensions, Pressable, Text, View } from 'react-native'
 
 import { createStylesModel, useThemedStyles } from '@/common/interface/theme'
 
-interface BasicButtonProps {
+interface SquareButtonProps {
   text: string
+  icon: ReactNode
   type?: 'primary' | 'secondary' | 'disabled'
   onPress: () => void
 }
 
-export default function BasicButton ({ text, type = 'primary', onPress }: BasicButtonProps) {
+export default function SquareButton ({ text, icon, type = 'primary', onPress }: SquareButtonProps) {
   const styles = useThemedStyles(stylesModel)
 
   const typedStyles = {
@@ -34,26 +36,29 @@ export default function BasicButton ({ text, type = 'primary', onPress }: BasicB
           typedStyles.btnBody,
           pressed && styles.btnBodyPressed,
         ]}
-        disabled={type === 'disabled'}
         onPress={onPress}
       >
-        <Text style={[styles.text, typedStyles.text]}>{text}</Text>
+        {icon}
       </Pressable>
+      <Text style={[styles.text, typedStyles.text]}>{text}</Text>
     </View>
   )
 }
 
+const { width } = Dimensions.get('screen')
+
+const btnSize = (width - 16 * 3) / 2
+
 const stylesModel = createStylesModel((palette) => ({
   container: {
-    height: 48,
-    width: '100%',
+    width: btnSize,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   btnBody: {
-    height: 48,
-    width: '100%',
+    height: btnSize,
+    width: btnSize,
     borderRadius: 8,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
@@ -62,7 +67,7 @@ const stylesModel = createStylesModel((palette) => ({
   },
   btnBodyPressed: {
     borderBottomWidth: 2,
-    height: 46,
+    height: btnSize - 2,
     transform: [{ translateY: 2 }],
   },
   primary: {
@@ -81,7 +86,8 @@ const stylesModel = createStylesModel((palette) => ({
     borderBottomColor: palette.borderPrimary,
   },
   text: {
-    fontSize: 16,
+    marginTop: 8,
+    fontSize: 20,
     fontWeight: '600',
     letterSpacing: 0.5,
   },
@@ -89,7 +95,7 @@ const stylesModel = createStylesModel((palette) => ({
     color: palette.textInverted,
   },
   textSecondary: {
-    color: palette.textSecondary,
+    color: palette.textTertiary,
   },
   textDisabled: {
     color: palette.textExtraLight,

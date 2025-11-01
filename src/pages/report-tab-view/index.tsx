@@ -4,14 +4,14 @@ import SafeHeader from '@/common/components/safe-header'
 import { useI18n } from '@/common/i18n'
 import { useNavigationNoHeader } from '@/common/interface/view'
 
-export default function GameTabView () {
+export default function ReportTabView () {
   useNavigationNoHeader()
   const { t } = useI18n()
 
   return (
     <View>
-      <SafeHeader title={t('tabNameGame')} />
-      <Text>{t('tabNameGame')}</Text>
+      <SafeHeader title={t('tabNameAchievement')} />
+      <Text>{t('tabNameAchievement')}</Text>
     </View>
   )
 }

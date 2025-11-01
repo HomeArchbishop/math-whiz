@@ -1,5 +1,4 @@
-tabNameAchievement: Achievement
-tabNameGame: Game
+tabNameReport: Report
 tabNameStudy: Study
 tabNameMe: Me
 alreadyHaveAccount: Already have an account?
@@ -12,3 +11,9 @@ signingUp: signing up
 username: Username
 password: Password
 agreementTips: "By {{action}}, you agree to the <User Agreement> and <Privacy Policy>"
+areYouReady: "{{name}}, Are you ready?"
+remainTip: "Today's remaining {{remain}} questions, estimated time {{time}} minutes."
+startExercise: Start exercise
+wrongExercise: Wrong exercise
+enterTheAnswer: Enter the answer
+checkAnswer: Check

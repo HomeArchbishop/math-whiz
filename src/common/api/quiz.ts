@@ -5,10 +5,6 @@ import { requestAuth } from '../request'
 import { SuccessApiData } from './utils/model'
 
 /** 获取题目 **/
-interface GenerateQuizParams {
-  loginInfo: LoginInfo
-}
-
 interface GenerateQuizResult {
   session_id: string
   questions: Array<{
@@ -20,15 +16,6 @@ interface GenerateQuizResult {
 }
 
 /** 提交答案 **/
-interface SubmitAnswersParams {
-  loginInfo: LoginInfo
-  sessionId: string
-  answers: Array<{
-    question_id: number
-    user_answer: string
-  }>
-}
-
 interface SubmitAnswersResult {
   correct_count: number
   total_count: number
@@ -37,12 +24,6 @@ interface SubmitAnswersResult {
 }
 
 /** 错题本 **/
-interface GetWrongBookParams {
-  loginInfo: LoginInfo
-  limit?: number
-  offset?: number
-}
-
 interface GetWrongBookResult {
   wrong_questions: Array<{
     id: number
@@ -57,7 +38,7 @@ interface GetWrongBookResult {
 /**
  * 获取题目
  */
-export const generateQuiz = async ({ loginInfo }: GenerateQuizParams) => {
+export const generateQuiz = async (loginInfo: LoginInfo) => {
   const { data: { data: result } } = await requestAuth(loginInfo).get<SuccessApiData<GenerateQuizResult>>(
     '/api/v1/quiz/generate',
   )
@@ -67,7 +48,14 @@ export const generateQuiz = async ({ loginInfo }: GenerateQuizParams) => {
 /**
  * 提交答案
  */
-export const submitAnswers = async ({ loginInfo, sessionId, answers }: SubmitAnswersParams) => {
+export const submitAnswers = async (
+  loginInfo: LoginInfo,
+  sessionId: string,
+  answers: Array<{
+    question_id: number
+    user_answer: string
+  }>,
+) => {
   const { data: { data: result } } = await requestAuth(loginInfo).post<SuccessApiData<SubmitAnswersResult>>(
     '/api/v1/quiz/submit',
     {
@@ -81,7 +69,7 @@ export const submitAnswers = async ({ loginInfo, sessionId, answers }: SubmitAns
 /**
  * 获取错题本
  */
-export const getWrongBook = async ({ loginInfo, limit = 10, offset = 0 }: GetWrongBookParams) => {
+export const getWrongBook = async (loginInfo: LoginInfo, limit = 10, offset = 0) => {
   const { data: { data: result } } = await requestAuth(loginInfo).get<SuccessApiData<GetWrongBookResult>>(
     `/api/v1/quiz/wrongbook?${qs.stringify({ limit, offset })}`,
   )

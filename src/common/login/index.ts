@@ -1,15 +1,12 @@
-import { useStorage, useStorageAsJSON } from '@/core/storage'
+import { storage, useStorageAsJSON } from '@/core/storage'
 
-import LoginInfo, { NotSecureLoginInfo } from './model'
+import LoginInfo from './model'
+
+const LOGIN_INFO_KEY = 'math_whiz.login-info'
 
 const useLoginInfoViaStorage = () => {
-  const token = useStorage('math_whiz:login-info_token', { secure: true })
-  const partial = useStorageAsJSON<NotSecureLoginInfo>('math_whiz:login-info_partial') ?? {}
-  const pending = new LoginInfo({
-    ...partial,
-    token,
-  })
-  return pending.isComplete() ? pending : null
+  const loginInfo = useStorageAsJSON<LoginInfo>(LOGIN_INFO_KEY) ?? new LoginInfo({})
+  return loginInfo.isComplete() ? loginInfo : null
 }
 
 const useLoginInfoViaRefresh = (perform: boolean) => {
@@ -25,4 +22,8 @@ export const useLogin = () => {
   const loginInfoViaStorage = useLoginInfoViaStorage()
   const loginInfoViaRefresh = useLoginInfoViaRefresh(!!loginInfoViaStorage)
   return loginInfoViaStorage ?? loginInfoViaRefresh
+}
+
+export const setLoginInfo = (loginInfo: LoginInfo) => {
+  storage.setItemAsJSON(LOGIN_INFO_KEY, loginInfo, { secure: true })
 }

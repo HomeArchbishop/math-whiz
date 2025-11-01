@@ -6,7 +6,7 @@ type FalsyValue = false | null | undefined | '' | 0
 type Resolved<T> = T extends Promise<infer U> ? U : T
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default class ApiCenter<Api extends Record<string, (...args: unknown[]) => Promise<any>>> {
+export default class ApiCenter<Api extends Record<string, (...args: any[]) => Promise<any>>> {
   constructor (private readonly apiCollection: Api) {}
 
   useApi = <T extends keyof Api, E extends Error = RetcodeError>(

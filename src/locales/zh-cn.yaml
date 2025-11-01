@@ -1,5 +1,4 @@
-tabNameAchievement: 成就
-tabNameGame: 游戏
+tabNameReport: 报告
 tabNameStudy: 学习
 tabNameMe: 我
 alreadyHaveAccount: 已有账号？
@@ -12,3 +11,9 @@ signingUp: 注册
 username: 用户名
 password: 密码
 agreementTips: "{{action}}即表示已阅读并同意《用户协议》与《隐私政策》"
+areYouReady: "{{name}}, 你准备好了吗？"
+remainTip: "今日剩余 {{remain}} 题，预计用时 {{time}} 分钟。"
+startExercise: 开始练习
+wrongExercise: 错题快练
+enterTheAnswer: 输入正确答案
+checkAnswer: 检查

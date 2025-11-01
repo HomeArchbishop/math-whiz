@@ -25,7 +25,7 @@ export default function AuthView () {
     <View style={styles.container}>
       <View style={styles.subContainer}>
         <Text style={styles.text}>{t('alreadyHaveAccount')}</Text>
-        <BasicButton text={t('login')} onPress={navigateToLogin} />
+        <BasicButton text={t('signIn')} onPress={navigateToLogin} />
       </View>
       <SeperateLine spaceVertical={40} />
       <View style={styles.subContainer}>

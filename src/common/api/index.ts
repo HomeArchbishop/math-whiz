@@ -1,9 +1,15 @@
 import ApiCenter from '@/core/functional/api-center'
 
-import * as sample from './sample'
+import * as login from './login'
+import * as quiz from './quiz'
+import * as stats from './stats'
+import * as user from './user'
 
 const api = {
-  ...sample,
+  ...login,
+  ...quiz,
+  ...stats,
+  ...user,
 } as const
 
 const { useApi } = new ApiCenter(api)

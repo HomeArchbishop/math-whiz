@@ -38,16 +38,9 @@ export default function HomeViewLayout () {
         }}
       />
       <Tabs.Screen
-        name='game'
+        name='report'
         options={{
-          tabBarLabel: t('tabNameGame'),
-          tabBarActiveTintColor: '#586CFF',
-        }}
-      />
-      <Tabs.Screen
-        name='achievement'
-        options={{
-          tabBarLabel: t('tabNameAchievement'),
+          tabBarLabel: t('tabNameReport'),
           tabBarActiveTintColor: '#3FE9D2',
         }}
       />

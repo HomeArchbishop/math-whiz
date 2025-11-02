@@ -75,7 +75,7 @@ export default function ExerciseView () {
     const usedTime = ~~((Date.now() - startTime) / 1000)
     const total = questions.length
     const correct = questions.filter((question) => question.correctAnswer === question.answer).length
-    router.push(`/result?time=${usedTime}&total=${total}&correct=${correct}`)
+    router.replace(`/result?time=${usedTime}&total=${total}&correct=${correct}`)
   }
 
   const questionRender = () => {
@@ -118,7 +118,7 @@ export default function ExerciseView () {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerContainer}>
         <Pressable onPress={handleBack}>
           <CrossSvg width={24} height={24} fill={styles.headerSvg.color} />

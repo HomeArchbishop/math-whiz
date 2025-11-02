@@ -30,7 +30,7 @@ export default function LoginView () {
       isSigninning.current = true
       // const result = await signin(username, password)
       // setLoginInfo(new LoginInfo(result))
-      router.push('/')
+      router.replace('/')
     } catch (error) {
       console.error(error)
     } finally {

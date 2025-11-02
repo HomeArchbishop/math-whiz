@@ -26,3 +26,8 @@ time: 用时
 correctCount: 正确
 accuracy: 正确率
 backToHome: 返回首页
+wrongBook: 错题本
+goToExercise: 去重做
+todayAlsoGood: 今天也很好！
+joinedAt: "{{year}} 年 {{month}} 月加入"
+logout: 退出登录

@@ -5,6 +5,7 @@ export default class LoginInfo {
   username: string = ''
   childName: string = ''
   grade: 1 | 2 | 3 | 4 | 5 | 6 = 1
+  createdAt: string = new Date().toISOString()
 
   constructor (loginInfo: Nullable<LoginInfo>) {
     Object.assign(this, loginInfo)

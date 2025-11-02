@@ -23,6 +23,7 @@ export default function HomeViewLayout () {
           height: 56 + insets.bottom,
           borderTopWidth: 2,
           borderTopColor: palette.borderPrimary,
+          backgroundColor: palette.backgroundPrimary,
         },
       }}
     >

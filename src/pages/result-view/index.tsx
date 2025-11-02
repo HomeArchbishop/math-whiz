@@ -19,7 +19,7 @@ export default function ResultView () {
   const isPerfect = accuracy === 100
 
   const handleBackToHome = () => {
-    router.push('/')
+    router.replace('/')
   }
 
   return (

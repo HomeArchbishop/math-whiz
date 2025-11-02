@@ -26,3 +26,8 @@ time: Time
 correctCount: Correct
 accuracy: Accuracy
 backToHome: Back to home
+wrongBook: Wrong book
+goToExercise: Go to exercise
+todayAlsoGood: Today also good!
+joinedAt: Joined at {{year}} / {{month}}
+logout: Logout

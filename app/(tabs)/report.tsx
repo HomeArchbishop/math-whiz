@@ -1,1 +1,1 @@
-export { default } from '@/pages/report-tab-view'
+// export { default } from '@/pages/report-tab-view'

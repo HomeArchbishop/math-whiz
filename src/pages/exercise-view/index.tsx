@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -39,6 +39,9 @@ export default function ExerciseView () {
   const isCheckAnswerDisabled = !displayQuestion.answer
 
   const [correctState, setCorrectState] = useState<'correct' | 'incorrect' | 'none'>('none')
+  const [isFinished, setIsFinished] = useState(false)
+
+  const { current: startTime } = useRef(Date.now())
 
   const handleBack = () => {
     router.back()
@@ -59,11 +62,20 @@ export default function ExerciseView () {
     const isCorrect = displayQuestion.answer === displayQuestion.correctAnswer
     setCorrectState(isCorrect ? 'correct' : 'incorrect')
     setTimeout(() => {
-      setCorrectState('none')
-      if (!toNext()) {
-        router.push('/')
+      const hasNext = toNext()
+      if (hasNext) {
+        setCorrectState('none')
+      } else {
+        setIsFinished(true)
       }
-    }, 800)
+    }, 400)
+  }
+
+  const handleContinue = () => {
+    const usedTime = ~~((Date.now() - startTime) / 1000)
+    const total = questions.length
+    const correct = questions.filter((question) => question.correctAnswer === question.answer).length
+    router.push(`/result?time=${usedTime}&total=${total}&correct=${correct}`)
   }
 
   const questionRender = () => {
@@ -85,6 +97,26 @@ export default function ExerciseView () {
     )
   }
 
+  const MainButtonRender = () => {
+    if (isFinished) {
+      return (
+        <BasicButton
+          type='primary'
+          text={t('continue')}
+          onPress={handleContinue}
+        />
+      )
+    }
+
+    return (
+      <BasicButton
+        type={isCheckAnswerDisabled ? 'disabled' : 'primary'}
+        text={t('checkAnswer')}
+        onPress={handleCheckAnswer}
+      />
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
@@ -100,11 +132,7 @@ export default function ExerciseView () {
       </View>
       {questionRender()}
       <View style={styles.buttonContainer}>
-        <BasicButton
-          type={isCheckAnswerDisabled ? 'disabled' : 'primary'}
-          text={t('checkAnswer')}
-          onPress={handleCheckAnswer}
-        />
+        <MainButtonRender />
       </View>
       <MockKeyboard onPress={handleKeyboardPress} />
     </SafeAreaView>
@@ -136,6 +164,7 @@ const stylesModel = createStylesModel((palette) => ({
   headerProgressBar: {
     height: 16,
     borderRadius: 12,
+    transition: 'width 0.4s ease-in-out',
     backgroundColor: palette.themeOrangePrimary,
   },
   tipContainer: {

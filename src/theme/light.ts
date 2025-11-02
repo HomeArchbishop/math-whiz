@@ -1,6 +1,7 @@
 export default {
   themeGreenPrimary: '#e2ffda',
   themeGreenDarker: '#62d2a2',
+  themeGreenPure: '#b8cd58',
   themeRedPrimary: '#f9eceb',
   themeRedDarker: '#ff0000',
   themeOrangePrimary: '#ff9900',

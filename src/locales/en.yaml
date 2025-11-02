@@ -17,3 +17,12 @@ startExercise: Start exercise
 wrongExercise: Wrong exercise
 enterTheAnswer: Enter the answer
 checkAnswer: Check
+continue: Continue
+perfect: Perfect!
+perfectTip: Take our compliments!
+keepGoing: Keep going!
+keepGoingTip: Today's exercise is over, keep going!
+time: Time
+correctCount: Correct
+accuracy: Accuracy
+backToHome: Back to home

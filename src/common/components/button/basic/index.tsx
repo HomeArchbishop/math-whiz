@@ -71,7 +71,7 @@ const stylesModel = createStylesModel((palette) => ({
     borderBottomColor: palette.themeOrangeDarker,
   },
   secondary: {
-    backgroundColor: palette.backgroundSecondary,
+    backgroundColor: palette.backgroundPrimary,
     borderColor: palette.borderPrimary,
     borderBottomColor: palette.borderPrimary,
   },

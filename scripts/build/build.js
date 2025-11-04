@@ -9,9 +9,10 @@ async function build () {
   await buildLocalesYaml(isWatch)
 
   if (isDev) {
-    childProcess.execSync('npx expo start', { stdio: 'inherit' })
+    childProcess.execSync('bunx expo start', { stdio: 'inherit' })
   } else {
-    childProcess.execSync('npx expo build', { stdio: 'inherit' })
+    const command = './gradlew  -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 assembleRelease --info'
+    childProcess.execSync(command, { stdio: 'inherit' })
   }
 }
 

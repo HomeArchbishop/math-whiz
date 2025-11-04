@@ -6,7 +6,7 @@ interface UserProfileResult {
   user_id: number
   username: string
   child_name: string
-  grade: number
+  grade: 1 | 2 | 3
   reminder_time: string
   created_at: string
 }

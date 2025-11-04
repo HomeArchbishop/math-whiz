@@ -5,7 +5,7 @@ import RequestHub from '../../core/request/request-hub'
 import LoginInfo from '../login/model'
 import { throwErrorMiddleware } from './middlewares/throw-error'
 
-const baseUrl = 'http://127.0.0.1:5000'
+const baseUrl = 'http://150.158.118.75:5000'
 
 export const requestAuth = (loginInfo?: LoginInfo) => {
   const request = new RequestHub()

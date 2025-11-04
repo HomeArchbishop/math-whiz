@@ -31,3 +31,9 @@ goToExercise: 去重做
 todayAlsoGood: 今天也很好！
 joinedAt: "{{year}} 年 {{month}} 月加入"
 logout: 退出登录
+childName: 孩子姓名
+grade: 年级
+signupSuccess: 注册成功
+signinSuccess: 登录成功
+usernameMustBeBetween3And16Characters: 用户名必须为3到16个字符
+gradeMustBeBetween1And3: 年级必须为1到3年级

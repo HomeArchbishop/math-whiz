@@ -9,7 +9,7 @@ import RatioGroup from '@/common/components/form/ratio'
 import { useI18n } from '@/common/i18n'
 import { createStylesModel, useThemedStyles } from '@/common/interface/theme'
 import { useNavigationNoHeader } from '@/common/interface/view'
-import { useLogin } from '@/common/login'
+import { setLoginInfo, useLogin } from '@/common/login'
 
 const formatDate = (date?: string) => {
   if (!date) {
@@ -30,6 +30,7 @@ export default function StudyTabView () {
   const [year, month] = formatDate(loginInfo?.createdAt)
 
   const handleLogout = () => {
+    setLoginInfo(null)
     router.push('/auth')
   }
 
@@ -52,7 +53,7 @@ export default function StudyTabView () {
       </SafeAreaView>
       <View style={styles.infoContainer}>
         <Text style={styles.infoTitle}>
-          {loginInfo?.childName ?? '花生'}
+          {loginInfo?.childName}
         </Text>
         <Text style={styles.infoSubtitle}>
           {t('joinedAt', { year, month })}

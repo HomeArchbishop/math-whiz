@@ -31,3 +31,9 @@ goToExercise: Go to exercise
 todayAlsoGood: Today also good!
 joinedAt: Joined at {{year}} / {{month}}
 logout: Logout
+childName: Child name
+grade: Grade
+signupSuccess: Signup success
+signinSuccess: Signin success
+usernameMustBeBetween3And16Characters: Username must be between 3 and 16 characters
+gradeMustBeBetween1And3: Grade must be between 1 and 3

@@ -1,9 +1,12 @@
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
 import { Pressable, Text, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import BackSvg from '@/assets/icons/back.svg'
+import { signin } from '@/common/api/login'
+import { getUserProfile } from '@/common/api/user'
 import BasicButton from '@/common/components/button/basic'
 import FormGroup from '@/common/components/form/from-group'
 import FormInput from '@/common/components/form/input'
@@ -11,6 +14,8 @@ import { useInput } from '@/common/components/form/input/use-input'
 import { useI18n } from '@/common/i18n'
 import { createStylesModel, useThemedStyles } from '@/common/interface/theme'
 import { useNavigationNoHeader } from '@/common/interface/view'
+import { setLoginInfo } from '@/common/login'
+import LoginInfo from '@/common/login/model'
 
 export default function LoginView () {
   useNavigationNoHeader()
@@ -28,11 +33,23 @@ export default function LoginView () {
     if (isSigninning.current) return
     try {
       isSigninning.current = true
-      // const result = await signin(username, password)
-      // setLoginInfo(new LoginInfo(result))
+      const result = await signin(username, password)
+      const profile = await getUserProfile(new LoginInfo({ token: result.token }))
+      setLoginInfo(new LoginInfo({
+        token: result.token,
+        username: profile.username,
+        childName: profile.child_name,
+        grade: profile.grade,
+        createdAt: profile.created_at,
+      }))
+      showMessage({
+        message: t('signinSuccess'),
+      })
       router.replace('/')
     } catch (error) {
-      console.error(error)
+      showMessage({
+        message: (error as Error).message,
+      })
     } finally {
       isSigninning.current = false
     }

@@ -2,7 +2,6 @@ import { Tabs } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import Tab1Icon from '@/assets/icons/tab1.svg'
-import Tab2Icon from '@/assets/icons/tab2.svg'
 import Tab3Icon from '@/assets/icons/tab3.svg'
 import { useI18n } from '@/common/i18n'
 import { usePalette } from '@/common/interface/theme'
@@ -38,23 +37,15 @@ export default function HomeViewLayout () {
         name='study'
         options={{
           tabBarLabel: t('tabNameStudy'),
-          tabBarIcon: () => <Tab1Icon />,
+          tabBarIcon: () => <Tab1Icon width={32} height={32} />,
           tabBarActiveTintColor: '#FF9C39',
-        }}
-      />
-      <Tabs.Screen
-        name='report'
-        options={{
-          tabBarLabel: t('tabNameReport'),
-          tabBarIcon: () => <Tab2Icon />,
-          tabBarActiveTintColor: '#3FE9D2',
         }}
       />
       <Tabs.Screen
         name='me'
         options={{
           tabBarLabel: t('tabNameMe'),
-          tabBarIcon: () => <Tab3Icon />,
+          tabBarIcon: () => <Tab3Icon width={32} height={32} />,
           tabBarActiveTintColor: '#39BAFF',
         }}
       />

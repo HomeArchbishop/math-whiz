@@ -1,6 +1,9 @@
 import { useLocalSearchParams } from 'expo-router'
 import { produce } from 'immer'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { useApi } from '@/common/api'
+import { useLogin } from '@/common/login'
 
 export interface QuestionSegment {
   type: 'number' | 'operator'
@@ -17,6 +20,7 @@ interface ParsedQuestion {
 
 interface Questions {
   questions: ParsedQuestion[]
+  sessionId: string
   current: number
   comfirmed: number
   comfirmThis: () => void
@@ -24,7 +28,7 @@ interface Questions {
   toNext: () => boolean
 }
 
-const questionsData: ParsedQuestion[] = [
+const questionsMock: ParsedQuestion[] = [
   {
     id: '1',
     raw: '1+1=',
@@ -91,13 +95,35 @@ const splitIntoSegments = (raw: string) => {
   return segments
 }
 
+const getAnswerFromRaw = (raw: string) => {
+  const operator = raw.match(/[+\-*/]/)?.[0]
+  if (!operator) return 0
+  const numbers = raw.split(operator)
+  if (numbers.length !== 2) return []
+  const number1 = parseInt(numbers[0])
+  const number2 = parseInt(numbers[1])
+  switch (operator) {
+    case '+':
+      return number1 + number2
+    case '-':
+      return number1 - number2
+    case '*':
+      return number1 * number2
+    case '/':
+      return number1 / number2
+  }
+  return 0
+}
+
 export const useQuestions = (): Questions => {
+  const loginInfo = useLogin()
+
   const { questions: questionsDataFromParams } = useLocalSearchParams<{ questions: string }>()
   const questionsDataFromParamsArray = questionsDataFromParams?.split(',').map((question) => {
     const id = question.match(/\[(\d+)\]/)?.[1]
     const [raw, correctAnswer] = question.replace(`[${id}]`, '').split('=')
     return {
-      id: id || `${questionsData.length + 1}`,
+      id: id || Math.random().toString(36).substring(2, 15),
       raw,
       answer: '',
       correctAnswer,
@@ -105,7 +131,24 @@ export const useQuestions = (): Questions => {
     }
   })
 
-  const [questions, setQuestions] = useState(questionsDataFromParams ? questionsDataFromParamsArray : questionsData)
+  const [requestedQuestions] = useApi('generateQuiz', loginInfo && !questionsDataFromParams && [loginInfo])
+
+  const questionsRemote = requestedQuestions?.questions.map((question) => {
+    const raw = question.content.replace(/\s/g, '').replace(/=/g, '')
+    return {
+      id: question.question_id.toString(),
+      raw,
+      answer: '',
+      correctAnswer: getAnswerFromRaw(raw).toString(),
+      question: splitIntoSegments(raw),
+    }
+  })?.slice(0, 4) ?? questionsMock
+
+  const [questions, setQuestions] = useState(questionsDataFromParams ? questionsDataFromParamsArray : questionsRemote)
+
+  useEffect(() => {
+    setQuestions(questionsDataFromParams ? questionsDataFromParamsArray : questionsRemote)
+  }, [questionsDataFromParams, questionsRemote])
 
   const [current, setCurrent] = useState(0)
   const [comfirmed, setComfirmed] = useState(0)
@@ -133,6 +176,7 @@ export const useQuestions = (): Questions => {
     comfirmed,
     comfirmThis,
     current,
+    sessionId: requestedQuestions?.session_id ?? '',
     setAnswer,
     toNext,
   }

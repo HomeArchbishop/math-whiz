@@ -1,8 +1,11 @@
 import { useRouter } from 'expo-router'
+import { useRef } from 'react'
 import { Pressable, Text, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import BackSvg from '@/assets/icons/back.svg'
+import { signup } from '@/common/api/login'
 import BasicButton from '@/common/components/button/basic'
 import FormGroup from '@/common/components/form/from-group'
 import FormInput from '@/common/components/form/input'
@@ -10,6 +13,8 @@ import { useInput } from '@/common/components/form/input/use-input'
 import { useI18n } from '@/common/i18n'
 import { createStylesModel, useThemedStyles } from '@/common/interface/theme'
 import { useNavigationNoHeader } from '@/common/interface/view'
+
+import { gradeValidator, usernameValidator, validatePipeline } from '../utils/validate'
 
 export default function SignupView () {
   useNavigationNoHeader()
@@ -19,8 +24,37 @@ export default function SignupView () {
 
   const [username, onChangeUsername] = useInput()
   const [password, onChangePassword] = useInput()
+  const [childName, onChangeChildName] = useInput()
+  const [grade, onChangeGrade] = useInput()
 
-  const isDisabled = !username || !password
+  const isDisabled = !username || !password || !childName || !grade
+
+  const isSigninning = useRef(false)
+  const handleSignUp = async () => {
+    if (isSigninning.current) return
+    try {
+      isSigninning.current = true
+      const [isValid, errorMessage] = validatePipeline(username, [
+        () => usernameValidator(username),
+        () => gradeValidator(grade),
+      ])
+      if (!isValid) {
+        throw new Error(errorMessage)
+      }
+      const gradeNumber = Number(grade) as 1 | 2 | 3
+      await signup(username, password, childName, gradeNumber)
+      showMessage({
+        message: t('signupSuccess'),
+      })
+      router.replace('/auth/login')
+    } catch (error) {
+      showMessage({
+        message: (error as Error).message,
+      })
+    } finally {
+      isSigninning.current = false
+    }
+  }
 
   const handleBack = () => {
     router.back()
@@ -39,9 +73,11 @@ export default function SignupView () {
         <FormGroup>
           <FormInput placeholder={t('username')} onChangeText={onChangeUsername} />
           <FormInput placeholder={t('password')} onChangeText={onChangePassword} />
+          <FormInput placeholder={t('childName')} onChangeText={onChangeChildName} />
+          <FormInput placeholder={t('grade')} onChangeText={onChangeGrade} keyboardType='numeric' />
         </FormGroup>
       </View>
-      <BasicButton type={isDisabled ? 'disabled' : 'primary'} text={t('signUp')} onPress={() => {}} />
+      <BasicButton type={isDisabled ? 'disabled' : 'primary'} text={t('signUp')} onPress={handleSignUp} />
       <Text style={styles.agreementTips}>{t('agreementTips', { action: t('signingUp') })}</Text>
     </SafeAreaView>
   )

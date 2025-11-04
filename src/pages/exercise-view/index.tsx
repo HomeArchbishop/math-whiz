@@ -71,7 +71,11 @@ export default function ExerciseView () {
     }, 400)
   }
 
-  const handleContinue = () => {
+  const reportResult = async () => {
+  }
+
+  const handleContinue = async () => {
+    await reportResult()
     const usedTime = ~~((Date.now() - startTime) / 1000)
     const total = questions.length
     const correct = questions.filter((question) => question.correctAnswer === question.answer).length

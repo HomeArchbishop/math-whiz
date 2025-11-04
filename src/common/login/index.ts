@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { storage, useStorageAsJSON } from '@/core/storage'
 
 import LoginInfo from './model'
@@ -5,8 +7,13 @@ import LoginInfo from './model'
 const LOGIN_INFO_KEY = 'math_whiz.login-info'
 
 const useLoginInfoViaStorage = () => {
-  const loginInfo = useStorageAsJSON<LoginInfo>(LOGIN_INFO_KEY) ?? new LoginInfo({})
-  return loginInfo.isComplete() ? loginInfo : null
+  const [loginInfo, setLoginInfo] = useState<LoginInfo | null>(null)
+  const loginInfoJSON = useStorageAsJSON<LoginInfo>(LOGIN_INFO_KEY) ?? {}
+  const newLoginInfo = new LoginInfo(loginInfoJSON)
+  useEffect(() => {
+    setLoginInfo(newLoginInfo)
+  }, [newLoginInfo.value()])
+  return loginInfo?.isComplete() ? loginInfo : null
 }
 
 const useLoginInfoViaRefresh = (perform: boolean) => {
@@ -24,6 +31,10 @@ export const useLogin = () => {
   return loginInfoViaStorage ?? loginInfoViaRefresh
 }
 
-export const setLoginInfo = (loginInfo: LoginInfo) => {
-  storage.setItemAsJSON(LOGIN_INFO_KEY, loginInfo, { secure: true })
+export const setLoginInfo = (loginInfo: LoginInfo | null) => {
+  if (loginInfo) {
+    storage.setItemAsJSON(LOGIN_INFO_KEY, loginInfo)
+  } else {
+    storage.removeItem(LOGIN_INFO_KEY)
+  }
 }

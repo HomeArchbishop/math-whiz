@@ -26,5 +26,5 @@ export default {
   backgroundInvertedQuaternary: '#ffffff81',
   backgroundInvertedExtraLight: '#ffffff1c',
   backgroundInvertedExtremelyLight: '#ffffff0c',
-  borderPrimary: '#e5e5e5',
+  borderPrimary: '#2c2c2c',
 } as const
